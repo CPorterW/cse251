@@ -21,225 +21,180 @@ Not passing an assert or answering #10 and #12: 0 points (code must pass all ass
 from unittest import TestCase
 from cse251functions import *
 
-# 1) TODO write a function called 'perform_math' that takes three parameters:
-#      - initial_value: int
-#      - value: int
-#      - operation: str
-#      - return value: float
-#      The function should perform the mathematical operation, represented
-#      by the string operation parameter, on the initial_value and value.
-#      Delete these instructions and replace with your own description of that the function does.
-
 def perform_math(initial_value: int, value: int, operation: str) -> float:
-    """
-    Performs a mathematical operation on two integers and returns the result as a float.
-
-    Parameters:
-    initial_value (int): The starting number to perform the operation on.
-    value (int): The number used to perform the operation.
-    operation (str): The operation to be performed, represented as a string.
-                     Can be one of the following: '+', '-', '*', '/', '**' (exponentiation).
-
-    Returns:
-    float: The result of the operation between initial_value and value.
-
-    Raises:
-    ValueError: If an unsupported operation is provided.
-    ZeroDivisionError: If a division by zero is attempted.
-    """
+    """A function for performing various mathemetical operations on two numbers.
     
-    if operation == '+':
-        return float(initial_value + value)
-    elif operation == '-':
-        return float(initial_value - value)
-    elif operation == '*':
-        return float(initial_value * value)
-    elif operation == '/':
-        if value == 0:
-            raise ZeroDivisionError("Cannot divide by zero.")
-        return float(initial_value / value)
-    elif operation == '**':
-        return float(initial_value ** value)
-    else:
-        raise ValueError(f"Unsupported operation: {operation}")
-
-
-def find_word_index(word_to_find: str, words: list) -> int:
-    """
-    Returns the index of the specified word in the provided list of words.
-
     Parameters:
-    word_to_find (str): The word whose index is to be found.
-    words (list): A list of strings where the search for the word will occur.
+        initial_value, value: integers that will be used in the operation
+        operation: a string form of an operator, +, -, /, *, //, or **
 
     Returns:
-    int: The index of the word_to_find in the list.
+        float: The result of the operation.
+    """
+    if operation == '+':
+        return value + initial_value
+    elif operation == '-':
+        return initial_value - value
+    elif operation == '*':
+        return initial_value * value
+    elif operation == '**':
+        return initial_value ** value
+    elif operation == '/':
+        return initial_value / value
+    elif operation == '//':
+        return initial_value // value
+    else:
+        print('Please use valid parameters.')
 
-    Raises:
-    ValueError: If the word is not found in the list.
+def find_word_index(word_to_find:str, words:list) -> int:
+    """Finds a word in a list of words and returns the index value of that word.
+
+    Args:
+        word_to_find (str): The word this function will search for.
+        words (list): The list of words containing the word that is being found.
+
+    Returns:
+        int: The index value of the word that was found.
     """
     return words.index(word_to_find)
 
-
 def get_value_from_dict_using_key(key: str, word_dict: dict) -> str:
-    """
-    Returns the value associated with the specified key from the given dictionary.
+    """A function for getting a value from a dictionary based on its key
 
-    Parameters:
-    key (str): The key to search for in the dictionary.
-    word_dict (dict): A dictionary where the key-value pair is stored.
+    Args:
+        key (str): The key of the dictionary whose value you're trying to retrieve
+        word_dict (dict): The dictionary with the key value pair you're using.
 
     Returns:
-    str: The value associated with the given key.
-
-    Raises:
-    KeyError: If the key is not found in the dictionary.
+        str: The retrieved value
     """
     return word_dict[key]
 
-
 def get_list_of_urls_from_dict(key: str, url_dict: dict) -> list:
-    """
-    Returns the list of URLs associated with the specified key from the given dictionary.
+    """This is a function for retrieving a list from a dictionary.
 
-    Parameters:
-    key (str): The key to search for in the dictionary.
-    url_dict (dict): A dictionary where the key is mapped to a list of URLs.
+    Args:
+        key (str): The key of the key-value pair whose value you're trying to find
+        url_dict (dict): the dictionary you're searching in
 
     Returns:
-    list: The list of URLs associated with the given key.
-
-    Raises:
-    KeyError: If the key is not found in the dictionary.
+        list: The list you were searching for
     """
     return url_dict[key]
 
-
 def find_url(urls: list, name: str) -> str:
-    """
-    Searches for and returns the first URL in the list that contains the specified name.
-    If no such URL is found, returns an empty string.
+    """This function finds a url in a list of urls by a string that url contains, 
+    or else returns an empty string.
 
-    Parameters:
-    urls (list): A list of URL strings to search within.
-    name (str): The name or keyword to search for in the URLs.
+    Args:
+        urls (list): The list of urls that is to be searched in
+        name (str): A string to be found in the url that is to be returned
 
     Returns:
-    str: The first URL that contains the specified name, or an empty string if none is found.
+        str: The url that will be returned
     """
     for url in urls:
         if name in url:
             return url
-    return ""
+    return ''
 
+def find_str_in_file(filename:str, str_to_find:str) -> bool:
+    """Searches a file for a string and returns true if the string is present,
+    false, otherwise.
 
-def find_str_in_file(filename: str, str_to_find: str) -> bool:
-    """
-    Checks if the specified string is present in the contents of a given file.
-
-    Parameters:
-    filename (str): The name of the file to search within.
-    str_to_find (str): The string to search for in the file.
+    Args:
+        filename (str): The name of the file for searching
+        str_to_find (str): the string that may or may not be in the file
 
     Returns:
-    bool: True if the string is found in the file, False otherwise.
-
-    Raises:
-    FileNotFoundError: If the file does not exist.
+        bool: true or false, depending on whether the str_to_find is in the file.
     """
-    try:
-        with open(filename, 'r') as file:
-            contents = file.read()
-            return str_to_find in contents
-    except FileNotFoundError:
-        raise FileNotFoundError(f"File '{filename}' not found.")
+    with open(filename, 'r') as file:
+        fileContents = file.read()
+        
+        # I love how versatile 'in' is. I forget sometimes that it's not just for
+        # for statements and if conditionals, but that it can be used to search entire files
+        # like this.
+        return str_to_find in fileContents
 
-
-class MyParentClass:
-    """
-    A class that holds an integer value, a list of values, and a name, 
-    and provides a method to access an element in the list by index.
-
+class MyParentClass: # not MyParentTrap 
+    """A class that contains an int, a list, and a string, and a method for retrieving
+    a value from the list using the int as an index. 
+    
     Attributes:
-    value (int): An integer value.
-    values (list): A list of values.
-    name (str): A string representing the name.
+        value (int): An index integer for retrieving a value from a list
+        values (list): A list 
+        name (str): A name string
 
     Methods:
-    get_value_using_index(index: int) -> int: 
-        Returns the value from the 'values' list at the specified index.
+        get_value_using_index(index: int) -> int
+            Returns the value from values at the index.
     """
-
+    
     def __init__(self, value: int, values: list, name: str):
         self.value = value
         self.values = values
         self.name = name
-
+        
     def get_value_using_index(self, index: int) -> int:
-        """
-        Returns the value from the 'values' list at the given index.
+        """Returns a number from a list based on a given index.
 
-        Parameters:
-        index (int): The index of the value to retrieve from the list.
+        Args:
+            index (int): The index of the list value
 
         Returns:
-        int: The value at the specified index in the 'values' list.
+            int: The retrieved number
         """
         return self.values[index]
 
-
 class MyChildClass(MyParentClass):
-    """
-    A class that extends MyParentClass by adding an additional 'age' attribute.
+    """MyParentClass, but with age, too.
 
     Attributes:
-    value (int): An integer value inherited from MyParentClass.
-    values (list): A list of values inherited from MyParentClass.
-    name (str): A string representing the name, inherited from MyParentClass.
-    age (int): An additional integer attribute representing age.
+        Everything from MyParentClass
+        age (int): An int representing age
 
     Methods:
-    Inherits all methods from MyParentClass.
+        get_value_using_index(index: int) -> int: from MyParentClass
     """
-
     def __init__(self, value: int, values: list, name: str, age: int):
-        # Call the constructor of the parent class with appropriate parameters
         super().__init__(value, values, name)
         self.age = age
 
-
 def pass_by_reference_mutable_example(lists_are_passed_by_reference_and_mutable: list, str_to_add: str) -> str:
-    """
-    Appends the given string to the provided list and returns the element at index 0.
+    """This function both adds a value to a list and returns the first value of that list. 
+    This demonstrates pass-by-reference, which is when a list is passed into a function by
+    the address of the space it occupies in the computer's memory. This also demonstrates 
+    mutability, which is the ability for a list or array to change without creating a new 
+    list or array in a separate place in memory. This means that changes that are made to the 
+    list within this function will persist outside the function even though we never pass back
+    the list.
 
-    Parameters:
-    lists_are_passed_by_reference_and_mutable (list): The list to which the string will be appended.
-    str_to_add (str): The string to append to the list.
+    Args:
+        lists_are_passed_by_reference_and_mutable (list): a list of strings
+        str_to_add (str): a string to be appended to the list
 
     Returns:
-    str: The value at index 0 of the list after the string has been appended.
+        str: the first string in the list
     """
     lists_are_passed_by_reference_and_mutable.append(str_to_add)
     return lists_are_passed_by_reference_and_mutable[0]
-
-
+    
 def pass_by_reference_immutable_example(strings_are_pass_by_reference_and_immutable: str, str_to_add: str) -> str:
-    """
-    Concatenates the given string to the provided string and returns the new string.
+    """This function appends a string to another string and returns the combined string, demonstrating 
+    immutability. Immutability means unchangability, meaning that whenever a string is added to or taken
+    from, it is really a new string with a different address, assigned to the same variable, but that is 
+    why strings must be passed back from functions and assigned to their proper variable, or else the 
+    the function would have no effect on the original variable.
 
-    Parameters:
-    strings_are_pass_by_reference_and_immutable (str): The original string to which another string will be appended.
-    str_to_add (str): The string to append to the original string.
+    Args:
+        strings_are_pass_by_reference_and_immutable (str): A string
+        str_to_add (str): The string that will be added to the other string
 
     Returns:
-    str: The new string resulting from concatenation of the original string and the string to add.
+        str: The combined string
     """
     return strings_are_pass_by_reference_and_immutable + str_to_add
-
-
-# Don't change any of the assert lines. All asserts should pass. You should see "All tests passed!" if all assert pass.
-# If an assert doesn't pass, you will see an AssertionError (see https://www.w3schools.com/python/ref_keyword_assert.asp).
-# The AssertionError will show you why it didn't pass (meaning, it is not an error with the assertion code, but with your code)
 
 def main():
     ''' Know how to:
@@ -309,8 +264,8 @@ def main():
         - Understand that an extended/child class inherits everything from parent class
         - Readings: https://www.geeksforgeeks.org/python-classes-and-objects/, https://www.geeksforgeeks.org/extend-class-method-in-python/, https://realpython.com/python-super/
     '''
-    # 13) TODO instantiate an object using MyParentClass with the following three parameters: (1, [5, 6, 7], "3")
-    obj = ...
+
+    obj = MyParentClass(1, [5,6,7], '3')
     assert obj.value == 1
     assert obj.values == [5, 6, 7]
     assert obj.name == "3"
@@ -318,12 +273,7 @@ def main():
     assert obj.get_value_using_index(1) == 6
     assert obj.get_value_using_index(2) == 7
 
-    # 14) TODO instantiate an object using MyChildClass with the following four parameters: (1, [5, 6, 7], "3", 10).
-    # 15) TODO: do NOT duplicate the code in the parent class when writing the child class. For example, the parent
-    # class constructor already creates the value, values, and name parameters. Do not write these in the child
-    # class. Instead, the child constructor should call the parent constructor. Same for the 'get_value_using_index'
-    # function, do not rewrite this in the child class.
-    childObj = ...
+    childObj = MyChildClass(1, [5,6,7], '3', 10)
     assert childObj.value == 1
     assert childObj.values == [5, 6, 7]
     assert childObj.name == "3"
