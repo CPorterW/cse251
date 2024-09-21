@@ -30,78 +30,212 @@ from cse251functions import *
 #      by the string operation parameter, on the initial_value and value.
 #      Delete these instructions and replace with your own description of that the function does.
 
-# 2) TODO write a function called 'find_word_index' that takes two parameters:
-#      - word_to_find: str
-#      - words: list
-#      - return value: int
-#      The function should return the index value of the word_to_find in the words list.
-#      Delete these instructions and replace with your own description of that the function does.
+def perform_math(initial_value: int, value: int, operation: str) -> float:
+    """
+    Performs a mathematical operation on two integers and returns the result as a float.
 
-# 3) TODO write a function called 'get_value_from_dict_using_key' that takes two parameters:
-#      - key: str
-#      - word_dict: dict
-#      - return value: str
-#      The function should return the value (which will be a string) mapped to the key.
-#      Delete these instructions and replace with your own description of that the function does.
+    Parameters:
+    initial_value (int): The starting number to perform the operation on.
+    value (int): The number used to perform the operation.
+    operation (str): The operation to be performed, represented as a string.
+                     Can be one of the following: '+', '-', '*', '/', '**' (exponentiation).
 
-# 4) TODO write a function called 'get_list_of_urls_from_dict' that takes two parameters:
-#      - key: str
-#      - url_dict: dict
-#      - return value: list
-#      The function should return the value (which will be a list) mapped to the key.
-#      Delete these instructions and replace with your own description of that the function does.
+    Returns:
+    float: The result of the operation between initial_value and value.
 
-# 5) TODO write a function called 'find_url' that takes two parameters:
-#      - urls: list
-#      - name: str
-#      - return value: str
-#      The function should return the url that contains the name within a list of urls,
-#      else return a blank string.
-#      Delete these instructions and replace with your own description of that the function does.
+    Raises:
+    ValueError: If an unsupported operation is provided.
+    ZeroDivisionError: If a division by zero is attempted.
+    """
+    
+    if operation == '+':
+        return float(initial_value + value)
+    elif operation == '-':
+        return float(initial_value - value)
+    elif operation == '*':
+        return float(initial_value * value)
+    elif operation == '/':
+        if value == 0:
+            raise ZeroDivisionError("Cannot divide by zero.")
+        return float(initial_value / value)
+    elif operation == '**':
+        return float(initial_value ** value)
+    else:
+        raise ValueError(f"Unsupported operation: {operation}")
 
-# 6) TODO write a function called 'find_str_in_file' that takes two parameters:
-#      - filename: str
-#      - str_to_find: str
-#      - return value: bool
-#      The function should return true if str_to_find is within the file, else false
-#      Delete these instructions and replace with your own description of that the function does.
 
-# 7) TODO write a class called 'MyParentClass'. The constructor should take three parameters:
-#      - value: int
-#      - values: list
-#      - name: str
-#      Add a method called 'get_value_using_index' that returns the value
-#      in the values list at an index that is passed.
-#      Delete these instructions and replace with your own description of that the function does.
+def find_word_index(word_to_find: str, words: list) -> int:
+    """
+    Returns the index of the specified word in the provided list of words.
 
-# 8) TODO write a class called 'MyChildClass'. The class should extend the MyParentClass.
-#      The constructor should take four parameters:
-#      - value: int
-#      - values: list
-#      - name: str
-#      - age: int
-#      The constructor should call super and pass in the appropriate parameters
-#      Delete these instructions and replace with your own description of that the function does.
+    Parameters:
+    word_to_find (str): The word whose index is to be found.
+    words (list): A list of strings where the search for the word will occur.
 
-# 9) TODO write a function called 'pass_by_reference_mutable_example' that takes two parameters:
-#      - lists_are_passed_by_reference_and_mutable: list
-#      - str_to_add: str
-#      - return value: str
-#      The function should append the str_to_add to the list and return index zero. Notice that in the asserts,
-#      that the memory id of the list stays the same after adding the string. Also, the function
-#      does not need to return the list in order for it to see the newly added item. Since the function
-#      needs to return a string, you can make changes to a list without needing to return it from a function.
-#      Delete these instructions and replace with your own description of that the function does.
-#      10) TODO: Provide a quick explanation of what pass-by-reference means. Also, what does mutable mean?
+    Returns:
+    int: The index of the word_to_find in the list.
 
-# 11) TODO write a function called 'pass_by_reference_immutable_example' that takes two parameters:
-#      - strings_are_pass_by_reference_and_immutable: string
-#      - str_to_add: str
-#      - return value: str
-#      The function should append the str_to_add to the strings_are_pass_by_reference_and_immutable string.
-#      Notice that in the asserts, that the memory id of the first string and the return string are different.
-#      Delete these instructions and replace with your own description of that the function does.
-#      12) TODO: What does immutable mean?
+    Raises:
+    ValueError: If the word is not found in the list.
+    """
+    return words.index(word_to_find)
+
+
+def get_value_from_dict_using_key(key: str, word_dict: dict) -> str:
+    """
+    Returns the value associated with the specified key from the given dictionary.
+
+    Parameters:
+    key (str): The key to search for in the dictionary.
+    word_dict (dict): A dictionary where the key-value pair is stored.
+
+    Returns:
+    str: The value associated with the given key.
+
+    Raises:
+    KeyError: If the key is not found in the dictionary.
+    """
+    return word_dict[key]
+
+
+def get_list_of_urls_from_dict(key: str, url_dict: dict) -> list:
+    """
+    Returns the list of URLs associated with the specified key from the given dictionary.
+
+    Parameters:
+    key (str): The key to search for in the dictionary.
+    url_dict (dict): A dictionary where the key is mapped to a list of URLs.
+
+    Returns:
+    list: The list of URLs associated with the given key.
+
+    Raises:
+    KeyError: If the key is not found in the dictionary.
+    """
+    return url_dict[key]
+
+
+def find_url(urls: list, name: str) -> str:
+    """
+    Searches for and returns the first URL in the list that contains the specified name.
+    If no such URL is found, returns an empty string.
+
+    Parameters:
+    urls (list): A list of URL strings to search within.
+    name (str): The name or keyword to search for in the URLs.
+
+    Returns:
+    str: The first URL that contains the specified name, or an empty string if none is found.
+    """
+    for url in urls:
+        if name in url:
+            return url
+    return ""
+
+
+def find_str_in_file(filename: str, str_to_find: str) -> bool:
+    """
+    Checks if the specified string is present in the contents of a given file.
+
+    Parameters:
+    filename (str): The name of the file to search within.
+    str_to_find (str): The string to search for in the file.
+
+    Returns:
+    bool: True if the string is found in the file, False otherwise.
+
+    Raises:
+    FileNotFoundError: If the file does not exist.
+    """
+    try:
+        with open(filename, 'r') as file:
+            contents = file.read()
+            return str_to_find in contents
+    except FileNotFoundError:
+        raise FileNotFoundError(f"File '{filename}' not found.")
+
+
+class MyParentClass:
+    """
+    A class that holds an integer value, a list of values, and a name, 
+    and provides a method to access an element in the list by index.
+
+    Attributes:
+    value (int): An integer value.
+    values (list): A list of values.
+    name (str): A string representing the name.
+
+    Methods:
+    get_value_using_index(index: int) -> int: 
+        Returns the value from the 'values' list at the specified index.
+    """
+
+    def __init__(self, value: int, values: list, name: str):
+        self.value = value
+        self.values = values
+        self.name = name
+
+    def get_value_using_index(self, index: int) -> int:
+        """
+        Returns the value from the 'values' list at the given index.
+
+        Parameters:
+        index (int): The index of the value to retrieve from the list.
+
+        Returns:
+        int: The value at the specified index in the 'values' list.
+        """
+        return self.values[index]
+
+
+class MyChildClass(MyParentClass):
+    """
+    A class that extends MyParentClass by adding an additional 'age' attribute.
+
+    Attributes:
+    value (int): An integer value inherited from MyParentClass.
+    values (list): A list of values inherited from MyParentClass.
+    name (str): A string representing the name, inherited from MyParentClass.
+    age (int): An additional integer attribute representing age.
+
+    Methods:
+    Inherits all methods from MyParentClass.
+    """
+
+    def __init__(self, value: int, values: list, name: str, age: int):
+        # Call the constructor of the parent class with appropriate parameters
+        super().__init__(value, values, name)
+        self.age = age
+
+
+def pass_by_reference_mutable_example(lists_are_passed_by_reference_and_mutable: list, str_to_add: str) -> str:
+    """
+    Appends the given string to the provided list and returns the element at index 0.
+
+    Parameters:
+    lists_are_passed_by_reference_and_mutable (list): The list to which the string will be appended.
+    str_to_add (str): The string to append to the list.
+
+    Returns:
+    str: The value at index 0 of the list after the string has been appended.
+    """
+    lists_are_passed_by_reference_and_mutable.append(str_to_add)
+    return lists_are_passed_by_reference_and_mutable[0]
+
+
+def pass_by_reference_immutable_example(strings_are_pass_by_reference_and_immutable: str, str_to_add: str) -> str:
+    """
+    Concatenates the given string to the provided string and returns the new string.
+
+    Parameters:
+    strings_are_pass_by_reference_and_immutable (str): The original string to which another string will be appended.
+    str_to_add (str): The string to append to the original string.
+
+    Returns:
+    str: The new string resulting from concatenation of the original string and the string to add.
+    """
+    return strings_are_pass_by_reference_and_immutable + str_to_add
+
 
 # Don't change any of the assert lines. All asserts should pass. You should see "All tests passed!" if all assert pass.
 # If an assert doesn't pass, you will see an AssertionError (see https://www.w3schools.com/python/ref_keyword_assert.asp).
